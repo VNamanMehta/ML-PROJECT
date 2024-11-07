@@ -5,6 +5,7 @@ from src.logger import logging
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
+from src.components.data_transformation import DataTransforamtion,DataTransformationConfig
 
 @dataclass #Decorator - helps to directly define class variables without init
 # use dataclass only if the class is ment to define variables else use init
@@ -39,6 +40,7 @@ class DataIngestion:
             train_set,test_set = train_test_split(df,test_size=0.2,random_state=42)
 
             train_set = train_set.to_csv(self.ingestion_config.train_data_path,index=False,header=True)
+            test_set = test_set.to_csv(self.ingestion_config.test_data_path,index=False,header=True)
             logging.info("Ingestion of the data is completed.")
 
             return(
@@ -53,4 +55,7 @@ class DataIngestion:
 
 if __name__ == "__main__":
     obj = DataIngestion()
-    obj.InitiateDataIngestion()
+    train_data_path,test_data_path = obj.InitiateDataIngestion()
+
+    data_transformation = DataTransforamtion()
+    data_transformation.initiate_data_transformation(train_data_path,test_data_path)
