@@ -1,3 +1,4 @@
+# main purpose of data transformation is feature engineering, data cleaning, convert categorical features to numerical feratures etc
 import sys
 import os
 from dataclasses import dataclass
@@ -84,6 +85,7 @@ class DataTransforamtion:
             logging.info("Applying preprocessing object on training dataframe and testing dataframe")
 
             input_feature_train_arr = preprocessor_obj.fit_transform(input_feature_train_df) # here be fit and transform the data on the preprocessor_obj (get_data_transformer_object is called on the data) 
+            # It is converted into a sparse matrix - A sparse matrix is a matrix in which most of the elements are zero. Instead of storing all elements, we store only non-zero values and their positions.
             input_feature_test_arr = preprocessor_obj.transform(input_feature_test_df)
 
             # fit_transform() on training data learns the transformation parameters.
